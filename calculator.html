@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mycalculator</title>
+    <style>
+        .main{
+            height:800px;
+            width:600px;
+            background-color: fuchsia;
+            display:flex;
+            flex-direction: column;
+            border:2px solid black;
+            padding:50px;
+        }
+        body{
+            padding-left: 450px;         
+            background-color: cadetblue;
+        }
+
+        #display{
+            background-color: bisque;
+            height:200px;
+            width:100%;
+        }
+
+        .input{
+            display:grid;
+            height:600px;
+            width:100%;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+        }
+
+        .main div{
+            border:3px solid black;
+            margin:10px;
+        }
+
+        .num{
+            background-color: greenyellow;
+        }
+        .operation{
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    in body
+    <div class="main">
+        <div id="display"></div>
+        <div class="input">
+            <button class="num" id="7" onclick="update(7)"> 7</button>
+            <button class="num" id="8" onclick="update(8)"> 8</button>
+            <button class="num" id="9" onclick="update(9)">9</button>
+            <button class="operation" id="*" >*</button>
+            <button class="num" onclick="update(4)">4</button>
+            <button class="num" onclick="update(5)">5</button>
+            <button class="num" onclick="update(6)">6</button>
+            <button class="operation">-</button>
+            <button class="num">1</button>
+            <button class="num">2</button>
+            <button class="num">3</button>
+            <button class="operation">/</button>
+            <button class="num" onclick="operator('=')">Ans</button>
+            <button class="num">Clear</button>
+            <button class="num">0</button>
+            <button class="operation" onclick="operator('+')">+</button>
+
+
+        </div>
+        <div></div>
+    </div>
+    <button>click me!!</button>
+
+    <script>
+    let flag=0;
+    let curr = 0;
+    let ans=0;
+
+    // Function to display input on the screen
+    function display(inp) {
+        const dis = document.getElementById("display");
+        dis.textContent = inp; // Update the content of the display
+    }
+
+    // Function to handle button clicks and update the current value
+    function update(inp) {
+        curr = curr * 10 + inp; // Build the number
+        display(curr); // Display the current value
+    }
+
+    // Add event listeners for number buttons
+    for (let i = 1; i <= 9; i++) {
+        const btn = document.getElementById(i);
+        btn.onclick = () => update(i); // Pass a function reference
+    }
+
+    function operator(a)
+    {
+        if(a=="+")
+        {
+            //no previous operator
+            if(flag===0)
+            {              
+                ans=curr;
+                curr=0;
+                display(curr);
+                flag=1;
+
+            }
+
+            else
+            {
+                ans=ans+curr;
+                curr=0;
+                display(ans);
+            }
+        }
+
+        if(a=="=")
+        {
+            ans=ans+curr;
+            display(ans);
+            ans=0;
+            curr=0;
+        }
+    }
+</script>
+ 
+</body>
+</html>
